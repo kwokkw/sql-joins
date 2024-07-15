@@ -119,7 +119,7 @@ WHERE id IN (SELECT movieid FROM casting
  WHERE actorid = (SELECT id from actor
   WHERE name = 'Julie Andrews'));
 
--- `ord=1` focus on the leading actor
+-- `ord=1`, focus on the leading actor
 SELECT title, actorid, ord FROM movie m
 JOIN casting c ON m.id = movieid AND ord=1
 WHERE id IN (SELECT movieid FROM casting
@@ -160,10 +160,9 @@ JOIN actor ON actorid=actor.id
 GROUP BY actorid HAVING ord=1 AND COUNT(actorid)>14
 ORDER BY name
 
-1. Incorrect HAVING Clause: The HAVING clause is used to filter groups after the GROUP BY operation, but the condition ord=1 should be part of the WHERE clause, not the HAVING clause. 
+1. Incorrect HAVING Clause: The HAVING clause is used to filter groups after the GROUP BY operation, but the condition ord=1 should be part of the WHERE clause, not the HAVING clause. The HAVING clause should only have aggregate functions.
    
-2. The HAVING clause should only have aggregate functions.
-Missing Grouping Column in Select Clause: The SELECT clause should include the column that is being grouped, which in this case is actor.name.
+2. Missing Grouping Column in Select Clause: The SELECT clause should include the column that is being grouped, which in this case is actor.name.
 
 3. Grouping on Non-Grouped Column: You need to group by the actor's name as well to avoid issues since you're selecting it.
 
